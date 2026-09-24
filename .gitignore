@@ -88,3 +88,17 @@ kubeconfig
 dicas.txt
 Arquitetura.txt
 Estrutura.txt
+---
+
+## Testes
+
+O projeto possui testes automatizados para o **Frontend** e **Backend**.
+
+### Frontend
+
+O frontend utiliza **Vitest** e **Testing Library**.
+
+```bash
+cd frontend
+npm install
+npm run test
