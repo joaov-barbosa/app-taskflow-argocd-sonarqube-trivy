@@ -286,3 +286,16 @@ k8s/secret.yaml
 ```
 
 > Em ambientes reais, os valores sensíveis não devem ser versionados diretamente no Git. Este projeto utiliza Secrets como parte do laboratório de Kubernetes.
+
+## Testes
+
+O projeto possui testes automatizados para o **Frontend** e **Backend**.
+
+### Frontend
+
+O frontend utiliza **Vitest** e **Testing Library**.
+
+```bash
+cd frontend
+npm install
+npm run test
