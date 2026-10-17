@@ -151,7 +151,7 @@ function App() {
         </p>
 
         <h1>
-          TaskFlow
+          TaskFlow do Joao
         </h1>
 
         <p className="subtitle">
