@@ -201,9 +201,6 @@ jobs:
       - build-trivyscan-push
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Atualizar imagens nos Deployments
         env:
           TAG: ${{ needs.build-trivyscan-push.outputs.tag }}

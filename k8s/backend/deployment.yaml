@@ -25,7 +25,7 @@ spec:
 
         - name: backend
 
-          image: joaobarbosa404/taskflow-backend:3b5ae8e-7
+          image: joaobarbosa404/taskflow-backend:
 
           imagePullPolicy: IfNotPresent
 

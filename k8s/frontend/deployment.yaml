@@ -25,7 +25,7 @@ spec:
 
         - name: frontend
 
-          image: joaobarbosa404/taskflow-frontend:3b5ae8e-7
+          image: joaobarbosa404/taskflow-frontend:
 
           imagePullPolicy: IfNotPresent
 
