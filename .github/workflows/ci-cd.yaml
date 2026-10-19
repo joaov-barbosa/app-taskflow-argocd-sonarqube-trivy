@@ -1,4 +1,5 @@
 name: Taskflow CI/CD
+
 on:
   pull_request:
     branches:
@@ -62,8 +63,16 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Executar testes
-        run: npm test
+      - name: Executar testes com cobertura
+        run: npm test -- --coverage
+
+      - name: Publicar artefato de cobertura do backend
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: backend/coverage/lcov.info
+          if-no-files-found: error
+          retention-days: 5
 
 
   sonarqube:
@@ -80,6 +89,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Baixar artefato de cobertura do backend
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-coverage
+          path: backend/coverage
+
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
@@ -88,6 +103,7 @@ jobs:
           args: >
             -Dsonar.qualitygate.wait=true
             -Dsonar.qualitygate.timeout=300
+            -Dsonar.javascript.lcov.reportPaths=backend/coverage/lcov.info
 
 
   build-trivyscan-push:
@@ -203,6 +219,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Atualizar imagens nos Deployments
         env:
           TAG: ${{ needs.build-trivyscan-push.outputs.tag }}
@@ -235,7 +252,6 @@ jobs:
           grep -n 'image:' "$BACKEND_FILE"
           grep -n 'image:' "$FRONTEND_FILE"
 
-          # Falha se as imagens esperadas não foram encontradas.
           grep -Fq \
             "image: ${DOCKER_USER}/taskflow-backend:${TAG}" \
             "$BACKEND_FILE"
